@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HBD CACAA!🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Nunito:wght@400;600;700&display=swap">
+<style>
+  :root {
+    --bg: #fdeaf6;
+    --bg-2: #f6d9f3;
+    --ink: #3b1352;
+    --ink-soft: #6b3f85;
+    --card: #ffffff;
+    --card-line: #e9c6ee;
+    --accent: #e8407a;
+    --accent-ink: #ffffff;
+    --field: #ffffff;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #22103a;
+      --bg-2: #341552;
+      --ink: #ffeaf5;
+      --ink-soft: #d9b8ee;
+      --card: #33184f;
+      --card-line: #5b2f85;
+      --accent: #ff6b9a;
+      --accent-ink: #2a0d3f;
+      --field: #2b1345;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #22103a;
+    --bg-2: #341552;
+    --ink: #ffeaf5;
+    --ink-soft: #d9b8ee;
+    --card: #33184f;
+    --card-line: #5b2f85;
+    --accent: #ff6b9a;
+    --accent-ink: #2a0d3f;
+    --field: #2b1345;
+  }
+
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(120% 80% at 50% 0%, var(--bg-2), var(--bg) 60%);
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  main {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 28px 20px 56px;
+    text-align: center;
+  }
+
+  h1 {
+    font-family: "Bagel Fat One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+    font-weight: 400;
+    font-size: clamp(2.1rem, 9vw, 3.4rem);
+    line-height: 1.08;
+    margin: 8px 0 4px;
+    color: var(--accent);
+    text-wrap: balance;
+  }
+  .sub { margin: 0 0 8px; color: var(--ink-soft); font-size: 1.05rem; }
+
+  /* cake */
+  .stage { position: relative; max-width: 340px; margin: 12px auto 4px; }
+  .stage svg { width: 100%; height: auto; display: block; overflow: visible; }
+  .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 0.9s ease-in-out infinite alternate; }
+  .flame:nth-of-type(2) { animation-delay: .25s; }
+  .flame:nth-of-type(3) { animation-delay: .5s; }
+  @keyframes flicker {
+    from { transform: scale(1, 1) rotate(-3deg); }
+    to   { transform: scale(.88, 1.12) rotate(3deg); }
+  }
+  .glow { transition: opacity .4s; }
+  .smoke { opacity: 0; transform-box: fill-box; transform-origin: 50% 100%; }
+  .out .flame { animation: none; transform: scale(0); transition: transform .25s ease-in; }
+  .out .glow { opacity: 0; }
+  .out .smoke { animation: puff 1.6s ease-out forwards; }
+  .out .smoke:nth-of-type(2) { animation-delay: .15s; }
+  .out .smoke:nth-of-type(3) { animation-delay: .3s; }
+  @keyframes puff {
+    0%   { opacity: .0; transform: translateY(0) scale(.6); }
+    20%  { opacity: .7; }
+    100% { opacity: 0; transform: translateY(-38px) scale(1.4); }
+  }
+
+  /* controls */
+  .btn {
+    appearance: none; border: 0; cursor: pointer;
+    background: var(--accent); color: var(--accent-ink);
+    font: 700 1.05rem "Nunito", system-ui, sans-serif;
+    padding: 14px 30px; border-radius: 999px;
+    min-height: 48px;
+    box-shadow: 0 6px 0 rgba(0,0,0,.18);
+    transition: transform .08s, box-shadow .08s;
+  }
+  .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,.18); }
+  .btn:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+  /* message */
+  .letter {
+    margin: 30px auto 0;
+    background: var(--card);
+    border: 2px solid var(--card-line);
+    border-radius: 26px;
+    padding: 28px 24px 24px;
+    text-align: left;
+    display: none;
+  }
+  .letter.show { display: block; animation: rise .7s cubic-bezier(.2,.9,.3,1.2); }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
+  .letter p { margin: 0 0 14px; font-size: 1.08rem; max-width: 60ch; }
+  .letter .wish { color: var(--ink-soft); }
+  .letter .sign { margin: 18px 0 0; font-weight: 700; text-align: right; color: var(--accent); }
+
+  /* customize */
+  details { margin: 34px auto 0; max-width: 420px; text-align: left; color: var(--ink-soft); font-size: .95rem; }
+  summary { cursor: pointer; text-align: center; padding: 8px; }
+  .fields { display: grid; gap: 10px; margin-top: 10px; }
+  label { display: grid; gap: 4px; font-weight: 600; }
+  input {
+    font: inherit; color: var(--ink);
+    background: var(--field);
+    border: 2px solid var(--card-line);
+    border-radius: 12px; padding: 10px 12px; min-height: 44px;
+  }
+
+  .music {
+    position: fixed; z-index: 20;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    right: 12px;
+    padding: 10px 16px; min-height: 44px;
+    font-size: .95rem;
+    background: var(--card); color: var(--ink);
+    border: 2px solid var(--card-line);
+    box-shadow: none;
+  }
+  .music:active { transform: scale(.97); box-shadow: none; }
+  .music[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .music[aria-pressed="true"] .ico { display: inline-block; animation: bob .8s ease-in-out infinite alternate; }
+  @keyframes bob { from { transform: translateY(1px) rotate(-8deg); } to { transform: translateY(-2px) rotate(8deg); } }
+  @media (prefers-reduced-motion: reduce) { .music[aria-pressed="true"] .ico { animation: none; } }
+
+  canvas#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flame, .out .smoke, .letter.show { animation: none; }
+  }
+</style>
+</head>
+<body>
+<button class="btn music" id="musik" type="button" aria-pressed="false" aria-label="Putar musik"><span class="ico" aria-hidden="true">🎵</span> <span id="musikTeks">Musik mati</span></button>
+<main>
+  <p class="sub" id="pre">This is your day</p>
+  <h1 id="judul">Selamat Ulang Tahun, Cacaa</h1>
+
+  <div class="stage" id="stage" role="img" aria-label="Kue ulang tahun dengan tiga lilin menyala">
+    <svg viewBox="0 0 240 230" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <!-- glow -->
+      <g class="glow">
+        <circle cx="80" cy="52" r="26" fill="#ffd66b" opacity=".25"/>
+        <circle cx="120" cy="44" r="30" fill="#ffd66b" opacity=".25"/>
+        <circle cx="160" cy="52" r="26" fill="#ffd66b" opacity=".25"/>
+      </g>
+      <!-- plate -->
+      <ellipse cx="120" cy="214" rx="108" ry="12" fill="#c9b6ff"/>
+      <ellipse cx="120" cy="210" rx="108" ry="12" fill="#e2d6ff"/>
+      <!-- bottom tier -->
+      <rect x="28" y="150" width="184" height="60" rx="14" fill="#ff6b8a"/>
+      <path d="M28 164 q12 16 24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t24 0 t16 0 v-10 h-184z" fill="#ffe3ec"/>
+      <circle cx="60" cy="188" r="4" fill="#ffd66b"/><circle cx="100" cy="194" r="4" fill="#7fe0c3"/>
+      <circle cx="140" cy="188" r="4" fill="#ffd66b"/><circle cx="180" cy="194" r="4" fill="#7fe0c3"/>
+      <!-- middle tier -->
+      <rect x="52" y="104" width="136" height="50" rx="12" fill="#ffd66b"/>
+      <path d="M52 116 q10 14 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t16 0 v-8 h-136z" fill="#fff4cf"/>
+      <!-- top tier -->
+      <rect x="76" y="70" width="88" height="38" rx="10" fill="#c9b6ff"/>
+      <path d="M76 80 q11 13 22 0 t22 0 t22 0 t22 0 v-6 h-88z" fill="#efe8ff"/>
+      <!-- candles -->
+      <rect x="93" y="50" width="8" height="24" rx="3" fill="#7fe0c3"/>
+      <rect x="116" y="42" width="8" height="32" rx="3" fill="#ff6b8a"/>
+      <rect x="139" y="50" width="8" height="24" rx="3" fill="#7fe0c3"/>
+      <!-- flames -->
+      <path class="flame" d="M97 48 c-7-9 -3-16 0-22 c3 6 7 13 0 22z" fill="#ff9d3c"/>
+      <path class="flame" d="M120 40 c-7-9 -3-16 0-22 c3 6 7 13 0 22z" fill="#ffb84a"/>
+      <path class="flame" d="M143 48 c-7-9 -3-16 0-22 c3 6 7 13 0 22z" fill="#ff9d3c"/>
+      <!-- smoke -->
+      <circle class="smoke" cx="97" cy="40" r="6" fill="#b9a4d6"/>
+      <circle class="smoke" cx="120" cy="32" r="7" fill="#b9a4d6"/>
+      <circle class="smoke" cx="143" cy="40" r="6" fill="#b9a4d6"/>
+    </svg>
+  </div>
+
+  <button class="btn" id="tiup" type="button">Tiup lilinnya 🎂</button>
+
+  <section class="letter" id="surat" aria-live="polite">
+    <p id="p1"></p>
+    <p class="wish" id="p2"></p>
+    <p id="p3"></p>
+    <p class="wish" id="p4"></p>
+    <p class="sign" id="ttd"></p>
+  </section>
+
+  <details>
+    <summary></summary>
+    <div class="fields">
+      <label>Nama yang berulang tahun
+        <input id="inNama" type="text" value="dedee" maxlength="30" autocomplete="off">
+      </label>
+      <label>Dari
+        <input id="inDari" type="text" value="Ramel" maxlength="30" autocomplete="off">
+      </label>
+    </div>
+  </details>
+</main>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var stage = $('stage'), btn = $('tiup'), surat = $('surat');
+  var inNama = $('inNama'), inDari = $('inDari');
+  var out = false;
+
+  // nama dari link, mis. ?nama=Sinta&dari=Rara
+  try {
+    var q = new URLSearchParams(location.search);
+    if (q.get('nama')) inNama.value = q.get('nama').slice(0, 30);
+    if (q.get('dari')) inDari.value = q.get('dari').slice(0, 30);
+  } catch (e) {}
+
+  function nama() { return (inNama.value || '').trim() || 'Sahabatku'; }
+  function dari() { return (inDari.value || '').trim() || 'Temanmu'; }
+
+  function render() {
+    $('judul').textContent = 'Selamat Ulang Tahun, ' + nama() + '!';
+    $('p1').textContent = 'Selamat ulang tahun yaa, panjang umur, sehat selalu, bahagia selalu doa abg yang terbaik untuk dede🫰🥰';
+    $('p2').textContent = 'abg gatau seberapa banyak beban dipundak dede, tapi dede hebat banget udah bertahan selama ini, abg bangga sama dede. Maaf abg gabisa nyiapin banyak hal untuk dede:(';
+    $('p3').textContent = 'Semoga dede terus semangat dan selalu kuat menjalani hari-harinya, dede hebat banget udah bisa bertahan sampai hari ini walaupun banyak rintangan dan masalah yang selama ini dede hadapin, dan dede berhasil lewatin itu semua. apalagi dede kemarin abis pkkmb pasti capek banget yaa? kemarin aja dede sampai drop dan di infus. tapi proud of you dede🫂. Selamat ulang tahun yaa, ' + nama() + '! 🎉';
+    $('p4').textContent = 'maaf banget abg ngga pandai bikin longtext dan maaf banget abg gabisa banyak bantu dede, maaf bgtt😞 mungkin sampai sini aja, terimakasih untuk semuanya. jangan pernah nyerah sesulit apapun itu dan bahagia selalu dedee. Thankyou and sorry for everything ';
+    $('ttd').textContent = 'Bahagia dan sehat selalu yaa ' ;
+  }
+  inNama.addEventListener('input', render);
+  inDari.addEventListener('input', render);
+  render();
+
+  /* confetti */
+  var cv = $('confetti'), ctx = cv.getContext('2d'), bits = [], raf = null;
+  var colors = ['#ff6b8a', '#ffd66b', '#7fe0c3', '#c9b6ff', '#ff9d3c', '#ffffff'];
+  function size() { cv.width = innerWidth; cv.height = innerHeight; }
+  addEventListener('resize', size); size();
+
+  function burst() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    for (var i = 0; i < 140; i++) {
+      bits.push({
+        x: cv.width / 2 + (Math.random() - .5) * 80,
+        y: cv.height * 0.35,
+        vx: (Math.random() - .5) * 12,
+        vy: -Math.random() * 12 - 3,
+        w: 6 + Math.random() * 6, h: 4 + Math.random() * 5,
+        r: Math.random() * 6, vr: (Math.random() - .5) * .4,
+        c: colors[(Math.random() * colors.length) | 0]
+      });
+    }
+    if (!raf) raf = requestAnimationFrame(tick);
+  }
+  function tick() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    bits = bits.filter(function (b) { return b.y < cv.height + 20; });
+    bits.forEach(function (b) {
+      b.vy += .28; b.vx *= .99; b.x += b.vx; b.y += b.vy; b.r += b.vr;
+      ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(b.r);
+      ctx.fillStyle = b.c; ctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h); ctx.restore();
+    });
+    raf = bits.length ? requestAnimationFrame(tick) : null;
+    if (!bits.length) ctx.clearRect(0, 0, cv.width, cv.height);
+  }
+
+  /* musik: melodi "Happy Birthday" ala kotak musik, dibuat langsung dengan Web Audio */
+  var mBtn = $('musik'), mTxt = $('musikTeks');
+  var ac = null, master = null, mTimer = null, playing = false;
+  var F = { G4: 392, A4: 440, B4: 493.88, C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99 };
+  var song = [
+    ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['C5', 1], ['B4', 2],
+    ['G4', .75], ['G4', .25], ['A4', 1], ['G4', 1], ['D5', 1], ['C5', 2],
+    ['G4', .75], ['G4', .25], ['G5', 1], ['E5', 1], ['C5', 1], ['B4', 1], ['A4', 1],
+    ['F5', .75], ['F5', .25], ['E5', 1], ['C5', 1], ['D5', 1], ['C5', 2]
+  ];
+  var beat = 0.58, total = 24 * beat;
+
+  function note(freq, t, dur) {
+    var g = ac.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.32, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(dur * 1.5, 0.5));
+    g.connect(master);
+    [[1, 'sine', 1], [2, 'sine', .28], [3, 'triangle', .1]].forEach(function (p) {
+      var o = ac.createOscillator(), pg = ac.createGain();
+      o.type = p[1]; o.frequency.value = freq * p[0]; pg.gain.value = p[2];
+      o.connect(pg); pg.connect(g);
+      o.start(t); o.stop(t + Math.max(dur * 1.5, 0.5) + 0.05);
+    });
+  }
+  function playSong() {
+    var t = ac.currentTime + 0.08;
+    song.forEach(function (n) { note(F[n[0]], t, n[1] * beat); t += n[1] * beat; });
+    mTimer = setTimeout(function () { if (playing) playSong(); }, (total + 1.8) * 1000);
+  }
+  function startMusic() {
+    if (playing) return;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    try {
+      if (!ac) { ac = new AC(); master = ac.createGain(); master.connect(ac.destination); }
+      if (ac.state === 'suspended') ac.resume();
+      master.gain.cancelScheduledValues(ac.currentTime);
+      master.gain.setValueAtTime(0.7, ac.currentTime);
+      playing = true;
+      playSong();
+      mBtn.setAttribute('aria-pressed', 'true');
+      mBtn.setAttribute('aria-label', 'Matikan musik');
+      mTxt.textContent = 'Musik nyala';
+    } catch (e) { playing = false; }
+  }
+  function stopMusic() {
+    playing = false;
+    clearTimeout(mTimer);
+    if (master && ac) {
+      master.gain.cancelScheduledValues(ac.currentTime);
+      master.gain.setValueAtTime(master.gain.value, ac.currentTime);
+      master.gain.linearRampToValueAtTime(0.0001, ac.currentTime + 0.25);
+    }
+    mBtn.setAttribute('aria-pressed', 'false');
+    mBtn.setAttribute('aria-label', 'Putar musik');
+    mTxt.textContent = 'Musik mati';
+  }
+  mBtn.addEventListener('click', function () { playing ? stopMusic() : startMusic(); });
+
+  btn.addEventListener('click', function () {
+    out = !out;
+    stage.classList.toggle('out', out);
+    stage.setAttribute('aria-label', out ? 'Kue ulang tahun, lilinnya sudah padam' : 'Kue ulang tahun dengan tiga lilin menyala');
+    if (out) {
+      btn.textContent = 'Nyalakan lagi 🕯️';
+      $('pre').textContent = 'Semoga semua permintaanmu terkabul';
+      surat.classList.add('show');
+      burst();
+      startMusic();
+      setTimeout(function () { surat.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 500);
+    } else {
+      btn.textContent = 'Tiup lilinnya 🎂';
+      $('pre').textContent = 'Hari ini hari spesialmu';
+    }
+  });
+})();
+</script>
+</body>
+</html>
